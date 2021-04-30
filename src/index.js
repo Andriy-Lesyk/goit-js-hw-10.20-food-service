@@ -15,23 +15,31 @@ const bodyPr = document.querySelector('body')
 
 changeTheme.addEventListener('change', onDarkTheme)
 
+
 const Theme = {
     LIGHT: 'light-theme',
     DARK: 'dark-theme',
   };
+
+if(localStorage.length===0){
+localStorage.setItem('themelight', Theme.LIGHT)
+}
+
 function onDarkTheme (){
     bodyPr.classList.toggle(Theme.DARK)
     if (changeTheme.checked===true){
-        localStorage.setItem('theme', Theme.DARK)
-        
+        localStorage.removeItem('themelight')
+        localStorage.setItem('themedark', Theme.DARK)    
     }else{
-        localStorage.removeItem('theme');
+        localStorage.removeItem('themedark')
+        localStorage.setItem('themelight', Theme.LIGHT)
     }
 }
-
-if(localStorage.theme==='dark-theme' ){
-bodyPr.classList.add(localStorage.getItem('theme'));
+console.log(localStorage)
+if(localStorage.themedark ){
+bodyPr.classList.add(localStorage.getItem('themedark'));
 changeTheme.checked=true
 }else{
+    bodyPr.classList.add(localStorage.getItem('themelight'));
     changeTheme.checked=false
 }
